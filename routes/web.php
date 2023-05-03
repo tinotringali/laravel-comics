@@ -14,5 +14,23 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('home');
+
+    $data = [
+        'comics' => config('comics'),
+    ];
+
+    return view('home', $data);
 });
+
+Route::get('/comics_single/{index}', function($index) {
+
+    $comics = config('comics'); 
+
+    if ($index > count($comics) - 1) {
+        abort(404);
+    }
+
+    $comics_single = $comics[$index]; 
+
+    return view('comics_single', compact('comics_single'));
+})->name('comics_single')->where('index', '[0-9]+');
