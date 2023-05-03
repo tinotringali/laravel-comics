@@ -1,16 +1,23 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Laravel</title>
-         @vite('resources/js/app.js')
-    </head>
-    <body>
-        <div class="container">
-            <h1>Template Classe 89</h1>
-            <img src="{{ Vite::asset('resources/img/pluto.webp') }}" alt="" srcset="">
-        </div>
+@extends('.app')
 
-    </body>
-</html>
+@section('page-main')
+<section id="posters" class="py-3">
+    <div class="container">
+        <div id="currentSiries">
+            <div>current siries</div>
+        </div>
+        <div class="row poster_list gap-3 py-4">
+             @foreach ($comics as $item)
+                <div class="card col-xl-2 text-center">
+                    <img src="{{ $item['thumb'] }}" alt="{{ $item['title'] }}">
+                    <div class="card-body">
+                        <h3>{{ $item['title'] }}</h3>
+                    </div>
+                    <button><a href="{{ route('comics_single', ['index' => $loop->index]) }}">dettaglio prodotto</a></button>
+                </div>
+            @endforeach
+        </div>
+        <button id="loadMore"><a href="#">load more</a></button>
+    </div>
+</section>
+@endsection
